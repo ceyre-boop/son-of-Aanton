@@ -3,7 +3,7 @@ import requests
 
 # Ollama Configuration
 OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
-OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "mistral")
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.2")  # Default to lighter model
 
 def discover(seed_path):
     """
@@ -36,11 +36,23 @@ Focus on something highly technical and specific to building this AI knowledge d
 Be creative and discover something NEW - don't repeat what's already in the index.
 """
 
-    # Check if Ollama is running
-    print(f"[Ollama] Generating with model: {OLLAMA_MODEL}...")
-    print("[Ollama] First run may take 30-60s as model loads into memory...")
-    
+    # Check if Ollama is running and model is available
+    print(f"[Ollama] Checking model: {OLLAMA_MODEL}...")
     try:
+        # Quick check if model exists
+        tags_resp = requests.get(f"{OLLAMA_HOST}/api/tags", timeout=10)
+        if tags_resp.status_code == 200:
+            models = tags_resp.json().get('models', [])
+            model_names = [m.get('name', '').split(':')[0] for m in models]
+            if OLLAMA_MODEL not in model_names:
+                print(f"[Ollama] Model '{OLLAMA_MODEL}' not found locally.")
+                print(f"[Ollama] Available: {', '.join(model_names[:5])}")
+                print(f"[Ollama] Run: ollama pull {OLLAMA_MODEL}")
+                print("[Ollama] Falling back to simulation...")
+                return [simulated_call(prompt)]
+        
+        print(f"[Ollama] Generating (timeout: 10 min for first load)...")
+        
         response = requests.post(
             f"{OLLAMA_HOST}/api/generate",
             json={
@@ -48,7 +60,7 @@ Be creative and discover something NEW - don't repeat what's already in the inde
                 "prompt": prompt,
                 "stream": False
             },
-            timeout=300  # 5 min for first load
+            timeout=600  # 10 min for large models on first load
         )
         
         if response.status_code == 200:
