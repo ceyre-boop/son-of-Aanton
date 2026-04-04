@@ -51,16 +51,21 @@ Be creative and discover something NEW - don't repeat what's already in the inde
                 print("[Ollama] Falling back to simulation...")
                 return [simulated_call(prompt)]
         
-        print(f"[Ollama] Generating (timeout: 10 min for first load)...")
+        print(f"[Ollama] Generating with {OLLAMA_MODEL}...")
+        print("[Ollama] (If this hangs, run: python prewarm_ollama.py first)")
         
         response = requests.post(
             f"{OLLAMA_HOST}/api/generate",
             json={
                 "model": OLLAMA_MODEL,
                 "prompt": prompt,
-                "stream": False
+                "stream": False,
+                "options": {
+                    "num_predict": 500,  # Limit response length
+                    "temperature": 0.7
+                }
             },
-            timeout=600  # 10 min for large models on first load
+            timeout=120  # 2 min - if model not loaded, will timeout
         )
         
         if response.status_code == 200:
