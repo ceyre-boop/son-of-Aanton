@@ -3,7 +3,7 @@ import requests
 
 # Ollama Configuration
 OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
-OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "")  # Empty = use simulation
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.2")  # Default to local AI
 
 def discover(seed_path):
     """
