@@ -2,9 +2,10 @@
 import os
 import storage
 import retrieve
-import learn
+import learn_ollama as learn
 import change
 import values_guard
+import divergence_detector
 
 SEED_PATH = "vault/seed.md"
 APPROVAL_REQUIRED = True
@@ -14,6 +15,8 @@ def run(num_cycles=1):
     values_guard.verify()
     
     print(f"--- Starting Discovery Loop (Cycles: {num_cycles}) ---")
+    
+    baseline_taken = False
     
     for i in range(num_cycles):
         print(f"\n--- Cycle {i+1}/{num_cycles} ---")
@@ -42,6 +45,22 @@ def run(num_cycles=1):
                     print("Action 'github_commit' blocked by values.lock.")
         
         print(f"Cycle {i+1} complete.")
+        
+        # Phase 4: Divergence Detection
+        if i == 0 and not baseline_taken:
+            # Take baseline after first cycle
+            print("\n[DivergenceDetector] Taking baseline snapshot...")
+            divergence_detector.take_baseline()
+            baseline_taken = True
+        elif baseline_taken:
+            # Check drift on subsequent cycles
+            drift_pct, should_rollback, reason = divergence_detector.check_drift()
+            if should_rollback:
+                print(f"\n[ALERT] High drift detected: {drift_pct:.1f}%")
+                print("Initiating rollback...")
+                divergence_detector.rollback_to_baseline()
+                print("Rollback complete. Stopping further cycles.")
+                break
 
 if __name__ == "__main__":
     import sys
