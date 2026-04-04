@@ -18,4 +18,4 @@ baseline_locked_at = ""            # master_node writes timestamp when baseline 
 mode = "nothing_box"
 
 [signature]
-file_hash       = "673036736db2aca0a48accbcb26bc7e7561f8b7816bfae6585632dc6a4f949d2"
+file_hash       = "72a256853f5a4b6e7cf30d61e7eb05c69161e309f094ae899ce2b17bd55c9dd0"
