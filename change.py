@@ -6,9 +6,9 @@ from datetime import datetime
 VAULT_DIR = "vault"
 HELD_DIR = "vault/held"
 
-# GitHub Configuration (from environment variables)
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
-GITHUB_REPO = os.environ.get("GITHUB_REPO")
+# GitHub Configuration
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or "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"
+GITHUB_REPO = os.environ.get("GITHUB_REPO") or "ceyre-boop/son-of-Aanton"
 
 def await_approval(draft_paths):
     """
