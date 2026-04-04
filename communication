@@ -1,0 +1,59 @@
+# Communication File - Instructions for Mac
+
+## Current Task: Open Vault in Obsidian
+
+Your vault is at: `/Users/taboost/Obsidian/Obsidian/vault`
+
+### Step 1: Open Terminal
+Press: Cmd + Space, type "Terminal", press Enter
+
+### Step 2: Run ONE of these commands (copy the whole line):
+
+Option A (try first):
+```
+open -a "Obsidian" "/Users/taboost/Obsidian/Obsidian/vault"
+```
+
+Option B (if A fails):
+```
+open "/Users/taboost/Obsidian/Obsidian/vault"
+```
+Then drag that folder into Obsidian.
+
+Option C (manual):
+1. Open Obsidian app
+2. Click "Open" (bottom left)
+3. Navigate to: `/Users/taboost/Obsidian/Obsidian/vault`
+4. Click "Open folder as vault"
+
+---
+
+## To Get Latest Updates (After I Run Discovery):
+
+```
+cd "/Users/taboost/Obsidian/Obsidian"
+git pull
+```
+
+Then in Obsidian: Cmd + R (to refresh)
+
+---
+
+## To Send Message Back to Me:
+
+```
+cd "/Users/taboost/Obsidian/Obsidian"
+echo "Your message here" > communication
+git add communication
+git commit -m "Update from Mac"
+git push
+```
+
+---
+
+## Status:
+- [x] Repo cloned
+- [ ] Vault opened in Obsidian (working on this)
+- [ ] Tested sync
+
+Last updated: 2026-04-04
