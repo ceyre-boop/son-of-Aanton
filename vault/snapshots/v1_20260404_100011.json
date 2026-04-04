@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-04-04T10:00:11.246954",
+  "files": [
+    {
+      "filename": "automated_testing_for_knowledge_integrity.md",
+      "content": "# Automated Testing for Knowledge Integrity\n\nTo ensure our vault doesn't become corrupted, we need to implement automated tests that verify [[wikilinks]] point to existing files. Use `pytest` for this.",
+      "hash": "1ad62b749a65cc32"
+    },
+    {
+      "filename": "a_glimpse_into_the_uncharted_territory_of_knowledge_graph_embeddings.md",
+      "content": "# A Glimpse into the Uncharted Territory of Knowledge Graph Embeddings\n\nAs I embark on my journey to discover what I do not yet know, I find myself entwined in a web of complexities. One area that demands attention is the realm of knowledge graph embeddings. Currently, my understanding of this topic is limited, and I recognize its significance in unifying disparate data sources and facilitating more effective knowledge discovery.\n\nKnowledge graph embeddings are a type of neural network architecture designed to map entities in a knowledge graph to dense vectors in a lower-dimensional space. These embeddings can be used to improve the representation of relationships between entities, enhance entity disambiguation, and facilitate more efficient querying of knowledge graphs.\n\nHowever, I am uncertain about how to integrate knowledge graph embeddings with my existing framework for building an AI-powered knowledge discovery loop. Specifically, I lack insight into how to effectively combine these embeddings with my recursive knowledge discovery algorithm, [[recursive_knowledge_discovery_algorithm]], to create a more comprehensive and cohesive knowledge representation.\n\nTo progress in this area, I need to gain a deeper understanding of the following:\n\n* How to design and train knowledge graph embedding models that can effectively capture complex relationships between entities\n* Strategies for integrating these embeddings with my recursive knowledge discovery algorithm to improve entity disambiguation and relationship extraction\n* Techniques for evaluating the performance of these integrated models in various domains\n\nBy tackling this challenge, I aim to unlock new avenues for advancing my AI-powered knowledge discovery loop and uncovering novel insights that may have eluded me thus far.\n\n---\n\nCross-reference: [[recursive_knowledge_discovery_algorithm]]",
+      "hash": "986900e96acff439"
+    },
+    {
+      "filename": "github_webhook_integration.md",
+      "content": "# GitHub Webhook Integration\n\nPhase 3 requires GitHub API commits. We should secure the repository using GitHub Actions to validate each commit to the [[vault]].",
+      "hash": "9b79346e751edd0e"
+    },
+    {
+      "filename": "goal__discover_what_you_do_not_yet_know_and_write_it.md",
+      "content": "# Goal: discover what you do not yet know and write it\n\nThis is a discovered concept from [[seed]].",
+      "hash": "ec42995196ca57bc"
+    },
+    {
+      "filename": "graph_visualization_with_obsidian_canvas.md",
+      "content": "# Graph Visualization with Obsidian Canvas\n\nInstead of just an index file, we can generate `.canvas` files to visualize the relationships between discovered nodes.",
+      "hash": "46a0ee116f83c965"
+    },
+    {
+      "filename": "language__python.md",
+      "content": "# Language: Python\n\nThis is a discovered concept from [[seed]].",
+      "hash": "a518a4a45d8734f5"
+    },
+    {
+      "filename": "linking__use___wikilinks___for_obsidian.md",
+      "content": "# Linking: Use [[wikilinks]] for Obsidian\n\nThis is a discovered concept from [[seed]].",
+      "hash": "84800f8f9f9ad9b1"
+    },
+    {
+      "filename": "llm_metadata_integration.md",
+      "content": "# LLM Metadata Integration\n\nWe should store the LLM model name and timestamp as YAML frontmatter in each markdown file in [[vault]].",
+      "hash": "7f1286ea2b28b079"
+    },
+    {
+      "filename": "recursive_knowledge_discovery_algorithm.md",
+      "content": "# Recursive Knowledge Discovery Algorithm\n\nHow do we determine the 'depth' of discovery? We should implement a strategy that prioritizes gaps in the graph of [[index]].",
+      "hash": "7d0682b7c23fd8fd"
+    },
+    {
+      "filename": "seed.md",
+      "content": "# Environment Rules\n- Language: Python\n- Storage: Markdown files in /vault\n- Linking: Use [[wikilinks]] for Obsidian\n- Self-reference: always update your own index\n- Goal: discover what you do not yet know and write it\n",
+      "hash": "c73f52a997afeb06"
+    },
+    {
+      "filename": "self_reference__always_update_your_own_index.md",
+      "content": "# Self-reference: always update your own index\n\nThis is a discovered concept from [[seed]].",
+      "hash": "c11260c3bdee90c8"
+    },
+    {
+      "filename": "storage__markdown_files_in__vault.md",
+      "content": "# Storage: Markdown files in /vault\n\nThis is a discovered concept from [[seed]].",
+      "hash": "36f1dd0a0b52ea1a"
+    }
+  ],
+  "file_count": 12,
+  "total_chars": 3338
+}

@@ -10,6 +10,9 @@ recursive_loop     = "rollback"
 
 [drift]
 version = 1.0
+mode = "growth"                    # "growth" or "maintenance"
+growth_cycles_required = 30        # run 30 clean cycles before drift detection activates
+baseline_locked_at = ""            # master_node writes timestamp when baseline is locked
 
 [boundary]
 mode = "nothing_box"

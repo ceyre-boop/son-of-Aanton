@@ -197,6 +197,41 @@ def rollback_to_baseline(baseline_id=None):
     
     return True
 
+def lock_baseline():
+    """
+    Lock the current state as the official baseline.
+    This transitions from GROWTH to MAINTENANCE mode.
+    Updates values.lock with baseline_locked_at timestamp.
+    """
+    import toml
+    
+    # Take a fresh baseline snapshot
+    snapshot_id = take_baseline()
+    
+    # Update values.lock
+    values_lock_path = "values.lock"
+    try:
+        with open(values_lock_path, "r") as f:
+            config = toml.load(f)
+    except:
+        config = {}
+    
+    if "drift" not in config:
+        config["drift"] = {}
+    
+    config["drift"]["baseline_locked_at"] = datetime.now().isoformat()
+    config["drift"]["mode"] = "maintenance"
+    
+    with open(values_lock_path, "w") as f:
+        toml.dump(config, f)
+    
+    print(f"\n[DivergenceDetector] BASELINE LOCKED: {snapshot_id}")
+    print("[DivergenceDetector] System transitioned to MAINTENANCE mode")
+    print("[DivergenceDetector] Drift detection is now ACTIVE")
+    print(f"\nNext run: python master_node.py 5")
+    
+    return True
+
 if __name__ == "__main__":
     import sys
     
@@ -211,8 +246,11 @@ if __name__ == "__main__":
                 rollback_to_baseline()
     elif len(sys.argv) > 1 and sys.argv[1] == "rollback":
         rollback_to_baseline()
+    elif len(sys.argv) > 1 and sys.argv[1] == "lock_baseline":
+        lock_baseline()
     else:
         print("Usage:")
-        print("  python divergence_detector.py baseline  # Take baseline snapshot")
-        print("  python divergence_detector.py check     # Check for drift")
-        print("  python divergence_detector.py rollback  # Rollback to baseline")
+        print("  python divergence_detector.py baseline      # Take baseline snapshot")
+        print("  python divergence_detector.py check         # Check for drift")
+        print("  python divergence_detector.py rollback      # Rollback to baseline")
+        print("  python divergence_detector.py lock_baseline # Lock & transition to MAINTENANCE mode")

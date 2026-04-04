@@ -48,20 +48,20 @@ def warm_model(model):
         
         elapsed = time.time() - start
         if resp.status_code == 200:
-            print(f"[Prewarm] ✓ Model loaded in {elapsed:.1f}s")
+            print(f"[Prewarm] [OK] Model loaded in {elapsed:.1f}s")
             print(f"[Prewarm] Response: {resp.json().get('response', '').strip()}")
             return True
         else:
-            print(f"[Prewarm] ✗ Error: {resp.status_code}")
+            print(f"[Prewarm] [X] Error: {resp.status_code}")
             print(f"[Prewarm] {resp.text}")
             return False
             
     except requests.exceptions.Timeout:
-        print(f"[Prewarm] ✗ Timeout after 5 minutes")
+        print(f"[Prewarm] [X] Timeout after 5 minutes")
         print(f"[Prewarm] Model may be too large for your system")
         return False
     except Exception as e:
-        print(f"[Prewarm] ✗ Error: {e}")
+        print(f"[Prewarm] [X] Error: {e}")
         return False
 
 def main():
@@ -69,17 +69,17 @@ def main():
     
     # Check Ollama server
     if not check_ollama_running():
-        print("✗ Ollama server not running!")
+        print("[X] Ollama server not running!")
         print("  Start it with: ollama serve")
         sys.exit(1)
-    print("✓ Ollama server is running")
+    print("[OK] Ollama server is running")
     
     # Check model exists
     if not check_model_available(MODEL):
-        print(f"✗ Model '{MODEL}' not found!")
+        print(f"[X] Model '{MODEL}' not found!")
         print(f"  Download with: ollama pull {MODEL}")
         sys.exit(1)
-    print(f"✓ Model '{MODEL}' is available")
+    print(f"[OK] Model '{MODEL}' is available")
     
     # Warm the model
     if warm_model(MODEL):

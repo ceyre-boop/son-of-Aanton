@@ -6,15 +6,69 @@ import learn_ollama as learn
 import change
 import values_guard
 import divergence_detector
+import toml
 
 SEED_PATH = "vault/seed.md"
 APPROVAL_REQUIRED = True
+
+# SYSTEM MODE: "growth" or "maintenance"
+# GROWTH: Drift detection OFF - system changes rapidly, no baseline exists
+# MAINTENANCE: Drift detection ON - baseline established, watch for unexpected drift
+SYSTEM_MODE = "growth"  # Switch to "maintenance" after ~30 clean cycles + baseline lock
+
+def get_system_mode():
+    """
+    Read mode from values.lock [drift] section.
+    Falls back to SYSTEM_MODE constant if not found.
+    """
+    try:
+        with open("values.lock", "r") as f:
+            config = toml.load(f)
+            return config.get("drift", {}).get("mode", SYSTEM_MODE)
+    except:
+        return SYSTEM_MODE
+
+def get_growth_cycles_required():
+    """Get minimum cycles required before maintenance mode can activate."""
+    try:
+        with open("values.lock", "r") as f:
+            config = toml.load(f)
+            return config.get("drift", {}).get("growth_cycles_required", 30)
+    except:
+        return 30
+
+def get_baseline_locked():
+    """Check if baseline has been explicitly locked."""
+    try:
+        with open("values.lock", "r") as f:
+            config = toml.load(f)
+            return config.get("drift", {}).get("baseline_locked_at", "") != ""
+    except:
+        return False
 
 def run(num_cycles=1):
     # Phase 4: Constitutional Verify on boot
     values_guard.verify()
     
+    # Determine current mode
+    current_mode = get_system_mode()
+    growth_required = get_growth_cycles_required()
+    baseline_locked = get_baseline_locked()
+    
     print(f"--- Starting Discovery Loop (Cycles: {num_cycles}) ---")
+    print(f"[System] Mode: {current_mode.upper()}")
+    
+    if current_mode == "maintenance":
+        if not baseline_locked:
+            print("[WARNING] Maintenance mode requested but no baseline locked!")
+            print("[WARNING] Run: python divergence_detector.py lock_baseline")
+            print("[WARNING] Falling back to GROWTH mode...")
+            current_mode = "growth"
+        else:
+            print("[System] Drift detection: ACTIVE")
+    else:
+        print(f"[System] Drift detection: OFF (growth phase)")
+        print(f"[System] Need {growth_required} cycles before maintenance mode")
     
     baseline_taken = False
     
@@ -46,21 +100,27 @@ def run(num_cycles=1):
         
         print(f"Cycle {i+1} complete.")
         
-        # Phase 4: Divergence Detection
-        if i == 0 and not baseline_taken:
-            # Take baseline after first cycle
-            print("\n[DivergenceDetector] Taking baseline snapshot...")
-            divergence_detector.take_baseline()
-            baseline_taken = True
-        elif baseline_taken:
-            # Check drift on subsequent cycles
-            drift_pct, should_rollback, reason = divergence_detector.check_drift()
-            if should_rollback:
-                print(f"\n[ALERT] High drift detected: {drift_pct:.1f}%")
-                print("Initiating rollback...")
-                divergence_detector.rollback_to_baseline()
-                print("Rollback complete. Stopping further cycles.")
-                break
+        # Phase 4: Divergence Detection (MAINTENANCE MODE ONLY)
+        if current_mode == "maintenance":
+            if i == 0 and not baseline_taken:
+                # Take baseline after first cycle in maintenance mode
+                print("\n[DivergenceDetector] Taking baseline snapshot...")
+                divergence_detector.take_baseline()
+                baseline_taken = True
+            elif baseline_taken:
+                # Check drift on subsequent cycles
+                drift_pct, should_rollback, reason = divergence_detector.check_drift()
+                if should_rollback:
+                    print(f"\n[ALERT] High drift detected: {drift_pct:.1f}%")
+                    print("Initiating rollback...")
+                    divergence_detector.rollback_to_baseline()
+                    print("Rollback complete. Stopping further cycles.")
+                    break
+        else:
+            # GROWTH MODE: Just report cycle count toward maintenance threshold
+            cycles_remaining = max(0, growth_required - (i + 1))
+            if cycles_remaining > 0:
+                print(f"[Growth] {cycles_remaining} more cycles until maintenance mode eligible")
 
 if __name__ == "__main__":
     import sys
