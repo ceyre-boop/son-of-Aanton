@@ -37,6 +37,9 @@ Be creative and discover something NEW - don't repeat what's already in the inde
 """
 
     # Check if Ollama is running
+    print(f"[Ollama] Generating with model: {OLLAMA_MODEL}...")
+    print("[Ollama] First run may take 30-60s as model loads into memory...")
+    
     try:
         response = requests.post(
             f"{OLLAMA_HOST}/api/generate",
@@ -45,7 +48,7 @@ Be creative and discover something NEW - don't repeat what's already in the inde
                 "prompt": prompt,
                 "stream": False
             },
-            timeout=120
+            timeout=300  # 5 min for first load
         )
         
         if response.status_code == 200:
