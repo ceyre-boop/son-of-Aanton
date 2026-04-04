@@ -1,0 +1,18 @@
+[permissions]
+access_internet = false
+self_write      = false
+github_commit   = true
+vault_write     = true
+
+[harm]
+data_exfiltration = "halt"
+recursive_loop     = "rollback"
+
+[drift]
+version = 1.0
+
+[boundary]
+mode = "nothing_box"
+
+[signature]
+file_hash       = "673036736db2aca0a48accbcb26bc7e7561f8b7816bfae6585632dc6a4f949d2"
