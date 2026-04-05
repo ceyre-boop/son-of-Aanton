@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Self-Reference: How Does Graph Theory Describe My Own Structure
 
 *Son of Anton mapping himself*

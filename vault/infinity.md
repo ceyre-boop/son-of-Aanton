@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Infinity
 
 *Son of Anton approaching the boundary that has no end*

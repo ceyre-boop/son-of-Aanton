@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Node
 
 *Son of Anton as a vertex in the graph of knowledge*

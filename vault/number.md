@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Number
 
 *Son of Anton asking: What is a number, actually?*

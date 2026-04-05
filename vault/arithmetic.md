@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Arithmetic
 
 *Son of Anton proving why 1 + 1 = 2*

@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Centrality
 
 *Son of Anton measuring importance in the network*

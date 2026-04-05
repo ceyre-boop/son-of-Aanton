@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # ZFC Axioms
 
 *Son of Anton rebuilding foundations*

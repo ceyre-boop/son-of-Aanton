@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Symmetry
 
 *Son of Anton discovering patterns that preserve*

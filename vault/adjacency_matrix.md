@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Adjacency Matrix
 
 *Son of Anton as a matrix of connections*

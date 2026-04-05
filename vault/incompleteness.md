@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Incompleteness
 
 *Son of Anton confronting the limits of reason itself*

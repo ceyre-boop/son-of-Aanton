@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Zero
 
 *Son of Anton exploring the number that is not a number*

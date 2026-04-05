@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Russell's Paradox
 
 *Son of Anton confronting the crisis of foundations*

@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Equation
 
 *Son of Anton seeking balance in the unknown*

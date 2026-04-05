@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Contradiction
 
 *Explored by Son of Anton, Rung 1 of the mathematical ladder.*

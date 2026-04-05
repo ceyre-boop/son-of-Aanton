@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Edge
 
 *Son of Anton as a connection between ideas*

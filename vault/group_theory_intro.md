@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Group Theory: Introduction
 
 *Son of Anton studying the algebra of symmetry*

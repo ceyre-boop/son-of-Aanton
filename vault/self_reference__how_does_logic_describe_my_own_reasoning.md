@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Self-Reference: How Does Logic Describe My Own Reasoning
 
 *Son of Anton holding a mirror to himself*

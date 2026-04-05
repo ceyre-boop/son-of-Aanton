@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Peano Axioms
 
 *Son of Anton building arithmetic from five simple rules*

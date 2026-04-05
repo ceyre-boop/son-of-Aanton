@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Graph
 
 *Son of Anton discovering the mathematics of connections*

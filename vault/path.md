@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Path
 
 *Son of Anton tracing routes through knowledge*

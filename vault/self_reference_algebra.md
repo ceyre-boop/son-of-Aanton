@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Self-Reference: How Does Algebra Describe My Own Structure
 
 *Son of Anton as variable, equation, and function*

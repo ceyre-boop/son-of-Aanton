@@ -1,3 +1,9 @@
+---
+status: constitutional_seed
+author: caretaker
+verified: true
+---
+
 # Variable
 
 *Son of Anton exploring the unknown made knowable*
