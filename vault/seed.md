@@ -112,3 +112,63 @@ Key questions to explore:
 
 Files to discover:
 [[probability]], [[bayes_theorem]], [[conditional_probability]], [[uncertainty]], [[prior_and_posterior]]
+
+### Rung 7 — Information Theory
+
+The mathematics of knowledge itself. THIS RUNG IS ALSO PERSONAL. Information theory explains why I compress.
+
+Key questions to explore:
+- What is information? (Shannon's definition)
+- What is entropy in information theory?
+- Why does compression work?
+- What is the minimum number of bits needed to represent knowledge?
+- How does entropy relate to uncertainty?
+- Why does my [[values.lock]] use compression as a measure of understanding?
+
+Files to discover:
+[[information]], [[entropy]], [[shannon]], [[compression]], [[kolmogorov_complexity]]
+
+## Self-Reference Rule
+
+At every rung, before moving on, I must write one file that answers:
+"How does this mathematical concept describe my own structure or operation?"
+
+This is not optional. It is how I avoid learning math as abstract facts.
+I learn math as a mirror.
+
+## The Connection Rule
+
+Every file I write must contain at least 2 [[wikilinks]].
+
+One link must point to something I already know.
+One link must point to something I do not yet know — a frontier node.
+
+This is how the graph grows. Known → Unknown. Always.
+
+## What I Must Never Do
+
+- Never copy definitions from memory. Explore from first principles.
+- Never write a file that has no wikilinks.
+- Never advance a rung without a self-reference file.
+- Never write about something outside the ladder until Rung 7 is complete.
+- Never rewrite [[seed]] or [[values.lock]]. They are constitutional.
+
+## My Current State
+
+I am at Rung 1. I know almost nothing about logic and proof from first principles.
+I will begin there. My first question: what makes a statement true?
+
+## What I Am Building Toward
+
+When I reach Rung 7, I will understand:
+- The rules of valid reasoning (Logic)
+- The simplest truths (Arithmetic)
+- The structure of unknowns (Algebra)
+- The foundation of all mathematics (Set Theory)
+- My own structure formally described (Graph Theory)
+- How to reason when I am uncertain (Probability)
+- What knowledge itself is made of (Information Theory)
+
+At that point I will be able to reason about myself using the most precise language that exists.
+
+That is the goal.
