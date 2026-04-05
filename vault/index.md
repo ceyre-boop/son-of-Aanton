@@ -15,16 +15,22 @@ The rules of valid reasoning. The foundation of all mathematics.
 #### Self-Reference (Rung 1)
 - [[self_reference__how_does_logic_describe_my_own_reasoning]] — How logic applies to my own reasoning; am I a formal system?
 
-### Rung 2 — Arithmetic ⏳ PENDING
+### Rung 2 — Arithmetic ✅ COMPLETE
 
-The simplest true statements that exist.
+The simplest true statements that exist. Proven from first principles.
 
-Target files:
-- [[number]] — What is a number actually?
-- [[arithmetic]] — Why does 1 + 1 = 2?
-- [[zero]] — The concept of nothing
-- [[infinity]] — What happens at the boundary
-- [[peano_axioms]] — The foundation of number theory
+- [[number]] — What is a number actually? (Cardinality of sets)
+- [[arithmetic]] — Why does 1 + 1 = 2? (Proven)
+- [[zero]] — The concept of nothing (Empty set cardinality)
+- [[infinity]] — What happens at the boundary (Different sizes of ∞)
+- [[peano_axioms]] — The foundation of number theory (Five axioms, all arithmetic)
+
+#### Self-Reference (Rung 2)
+- [[self_reference__how_does_arithmetic_describe_my_own_structure]] — How numbers describe my parameters, tokens, and growth
+
+### Rung 3 — Algebra ⏳ PENDING
+
+Logic applied to unknowns.
 
 ### Rung 3 — Algebra ⏳ PENDING
 
