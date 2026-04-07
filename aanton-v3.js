@@ -181,9 +181,15 @@ Be concise but engaging.`;
         
         // Check for questions about user's preferences/likes
         if ((lower.includes('what do i like') || lower.includes('what do I like') || 
-             lower.includes('what do you know i like') || lower.includes('what do you know about me')) &&
+             lower.includes('what do you know i like')) &&
             (this.userModel.facts.length > 0 || this.userModel.interests.length > 0)) {
             return this.answerWhatILike();
+        }
+        
+        // Check for specific attribute questions (what number am I, what am I, etc)
+        const attributeMatch = lower.match(/what (number|name|job|am i|am i called)/);
+        if (attributeMatch) {
+            return this.answerAttributeQuestion(attributeMatch[1]);
         }
         
         // Check if user is sharing a fact (like/hate/am/work)
@@ -307,21 +313,44 @@ Be concise but engaging.`;
         return acknowledgments[Math.floor(Math.random() * acknowledgments.length)];
     }
     
+    answerAttributeQuestion(attribute) {
+        // Search facts for the attribute
+        const relevantFacts = this.userModel.facts.filter(f => {
+            const lowerFact = f.toLowerCase();
+            if (attribute === 'number') return lowerFact.includes('number');
+            if (attribute === 'name') return lowerFact.includes('name') || lowerFact.includes('i am');
+            if (attribute === 'job') return lowerFact.includes('job') || lowerFact.includes('work');
+            return lowerFact.includes(attribute);
+        });
+        
+        if (relevantFacts.length > 0) {
+            // Return the most recent matching fact
+            const fact = relevantFacts[relevantFacts.length - 1];
+            // Clean up the fact for presentation
+            const cleaned = fact.replace(/^i am /i, '').replace(/^i work as /i, '');
+            return `You told me you're ${cleaned}. Is that correct?`;
+        }
+        
+        return `I don't know yet. What ${attribute} are you?`;
+    }
+    
     answerWhatILike() {
         // Find likes from facts
-        const likes = this.userModel.facts.filter(f => 
-            f.toLowerCase().includes('like') || 
-            f.toLowerCase().includes('love') ||
-            f.toLowerCase().includes('enjoy')
-        );
+        const likes = this.userModel.facts.filter(f => {
+            const lower = f.toLowerCase();
+            return lower.includes('like') || lower.includes('love') || lower.includes('enjoy');
+        });
         
         if (likes.length > 0) {
-            const likeFacts = likes.map(f => f.replace(/i (like|love|enjoy)/i, '').trim());
-            return `Based on what you've told me, you ${likes[0].match(/i (like|love|enjoy)/i)[1]} ${likeFacts.join(', ')}. Is that right?`;
+            const things = likes.map(f => {
+                const match = f.match(/i (like|love|enjoy|hate) ([^.]+)/i);
+                return match ? match[2].trim() : f;
+            });
+            return `You told me you like: ${things.join(', ')}. Did I get that right?`;
         }
         
         if (this.userModel.interests.length > 0) {
-            return `I know you're interested in ${this.userModel.interests.join(', ')}. What else do you like?`;
+            return `I know you're interested in ${this.userModel.interests.join(', ')}. Tell me more about what you like!`;
         }
         
         return "I'm still learning what you like. Tell me more about your preferences!";
