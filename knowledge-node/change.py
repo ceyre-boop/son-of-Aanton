@@ -91,6 +91,29 @@ def find_related_topics(title, storage_path):
     
     return related
 
+def add_connection(target_file, links_to_add):
+    """
+    Add wikilink connections to an isolated file.
+    Used by the CREATE objective.
+    """
+    if not target_file.exists():
+        return False
+    
+    content = target_file.read_text()
+    
+    # Add connections section if not exists
+    if "## Connections" not in content:
+        content += "\n\n## Connections\n"
+    
+    # Add each link
+    for link in links_to_add:
+        link_text = f"- [[{link}]]\n"
+        if link_text not in content:
+            content += link_text
+    
+    target_file.write_text(content)
+    return True
+
 def create_diff(old_content, new_content):
     """
     Create a human-readable diff of changes.
