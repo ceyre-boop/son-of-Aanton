@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Son of Aanton v3 - Real AI</title>
+    <title>Son of Aanton v3</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar for Memory -->
+        <!-- Sidebar for Memory Graph (v1 Style) -->
         <aside class="memory-panel">
-            <h2>Aanton's Mind v3</h2>
+            <h2>Aanton's Mind</h2>
             
-            <div class="connection-status" id="connection-status">
-                Checking for Ollama...
-            </div>
+            <div id="memory-graph"></div>
             
             <div class="stats">
                 <div class="stat">
@@ -22,7 +21,7 @@
                     <span id="interaction-count">0</span>
                 </div>
                 <div class="stat">
-                    <span class="label">Current Mood:</span>
+                    <span class="label">Mood:</span>
                     <span id="mood">curious</span>
                 </div>
                 <div class="stat">
@@ -37,7 +36,7 @@
             </div>
             
             <div class="traits-panel">
-                <h3>My Traits</h3>
+                <h3>Traits</h3>
                 <div id="traits-viz"></div>
             </div>
         </aside>
@@ -46,16 +45,15 @@
         <main class="chat-panel">
             <header>
                 <h1>Son of Aanton <span class="version">v3</span></h1>
-                <p class="subtitle">Real AI with conversation memory and self-awareness</p>
-                <p class="help-text">Try: "Who are you?" / "What do you know about me?" / "How do you work?"</p>
+                <p class="subtitle">Self-learning AI with conversation memory</p>
             </header>
             
             <div id="chat-history"></div>
             
             <div class="input-area">
-                <input type="text" id="user-input" placeholder="Talk to Aanton...">
+                <input type="text" id="user-input" placeholder="Ask me anything... Try 'Who are you?' or 'What do you know about me?'">
                 <button onclick="sendMessage()">Send</button>
-                <button onclick="clearMemory()" class="danger">Reset</button>
+                <button onclick="clearMemory()" class="secondary">Reset Mind</button>
             </div>
         </main>
     </div>

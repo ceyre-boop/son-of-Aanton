@@ -379,6 +379,159 @@ Be concise but engaging.`;
         chat.appendChild(div);
         chat.scrollTop = chat.scrollHeight;
     }
+    
+    updateUI() {
+        const countEl = document.getElementById('interaction-count');
+        const moodEl = document.getElementById('mood');
+        const energyEl = document.getElementById('energy');
+        const factsEl = document.getElementById('user-facts');
+        
+        if (countEl) countEl.textContent = this.selfModel.totalInteractions;
+        if (moodEl) moodEl.textContent = this.getCurrentMood();
+        if (energyEl) energyEl.textContent = this.calculateEnergy().toFixed(1) + '/10';
+        
+        if (factsEl) {
+            if (this.userModel.facts.length === 0) {
+                factsEl.textContent = 'Nothing yet...';
+            } else {
+                factsEl.innerHTML = this.userModel.facts.slice(-5).map(f => `• ${f}`).join('<br>');
+            }
+        }
+        
+        this.renderTraits();
+        this.renderMemoryGraph();
+    }
+    
+    renderTraits() {
+        const container = document.getElementById('traits-viz');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        for (let [trait, value] of Object.entries(this.traits)) {
+            const div = document.createElement('div');
+            div.className = 'trait-bar';
+            div.innerHTML = `
+                <label>${trait} (${value.toFixed(1)})</label>
+                <div class="bar">
+                    <div class="bar-fill" style="width: ${value * 10}%"></div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+    }
+    
+    renderMemoryGraph() {
+        const container = document.getElementById('memory-graph');
+        if (!container || typeof d3 === 'undefined') return;
+        
+        const width = 310;
+        const height = 250;
+        
+        // Clear previous
+        d3.select("#memory-graph").selectAll("*").remove();
+        
+        // Create nodes from conversation history and user knowledge
+        const nodes = [];
+        
+        // Add conversation topics as nodes
+        const topics = this.extractTopics(this.conversationHistory.slice(-10));
+        topics.forEach((topic, i) => {
+            nodes.push({
+                id: `topic-${i}`,
+                label: topic,
+                type: 'topic',
+                r: 8 + Math.random() * 5
+            });
+        });
+        
+        // Add user facts as nodes
+        this.userModel.facts.slice(-5).forEach((fact, i) => {
+            const shortFact = fact.length > 15 ? fact.substring(0, 12) + '...' : fact;
+            nodes.push({
+                id: `fact-${i}`,
+                label: shortFact,
+                type: 'fact',
+                r: 10
+            });
+        });
+        
+        // Add self as center node
+        nodes.push({
+            id: 'self',
+            label: 'Aanton',
+            type: 'self',
+            r: 15
+        });
+        
+        if (nodes.length <= 1) {
+            d3.select("#memory-graph")
+                .append("div")
+                .style("padding", "20px")
+                .style("color", "#666")
+                .style("font-size", "12px")
+                .text("Talking to you... memories forming...");
+            return;
+        }
+        
+        // Create SVG
+        const svg = d3.select("#memory-graph")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+        
+        // Create links (connect everything to center)
+        const links = nodes
+            .filter(n => n.id !== 'self')
+            .map(n => ({ source: 'self', target: n.id }));
+        
+        // Force simulation
+        const simulation = d3.forceSimulation(nodes)
+            .force("charge", d3.forceManyBody().strength(-100))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("collision", d3.forceCollide().radius(d => d.r + 5))
+            .force("link", d3.forceLink(links).id(d => d.id).distance(60));
+        
+        // Draw links
+        const link = svg.selectAll(".link")
+            .data(links)
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("stroke", "#4a4a6a")
+            .attr("stroke-width", 1)
+            .attr("opacity", 0.6);
+        
+        // Draw nodes
+        const node = svg.selectAll(".node")
+            .data(nodes)
+            .enter().append("g")
+            .attr("class", "node");
+        
+        node.append("circle")
+            .attr("r", d => d.r)
+            .attr("fill", d => {
+                if (d.type === 'self') return "#e94560";
+                if (d.type === 'fact') return "#4ecca3";
+                return "#ffc107";
+            })
+            .attr("opacity", 0.8);
+        
+        node.append("text")
+            .attr("dx", d => d.r + 3)
+            .attr("dy", 4)
+            .text(d => d.label)
+            .attr("fill", "#eaeaea")
+            .attr("font-size", "10px");
+        
+        simulation.on("tick", () => {
+            link
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+            
+            node.attr("transform", d => `translate(${d.x},${d.y})`);
+        });
+    }
 }
 
 // Initialize
@@ -403,6 +556,7 @@ async function sendMessage() {
     if (thinking) thinking.parentElement.remove();
     
     window.aanton.addMessage('aanton', response);
+    window.aanton.updateUI();
 }
 
 function clearMemory() {
@@ -416,7 +570,8 @@ document.getElementById('user-input')?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMessage();
 });
 
-// Initial greeting
+// Initial greeting and UI setup
 setTimeout(() => {
     window.aanton.addMessage('aanton', window.aanton.introduceSelf());
+    window.aanton.updateUI();
 }, 500);
