@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Son of Aanton v2 - Self-Aware AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="memory-panel">
+            <h2>Aanton's Self-Model</h2>
+            
+            <div class="self-stats">
+                <div class="stat-row">
+                    <span>Accuracy:</span>
+                    <span id="accuracy">50%</span>
+                </div>
+                <div class="stat-row">
+                    <span>Confidence:</span>
+                    <span id="confidence">Medium</span>
+                </div>
+                <div class="stat-row">
+                    <span>Self-Awareness:</span>
+                    <span id="self-awareness">5.0</span>
+                </div>
+                <div class="stat-row">
+                    <span>Uncertainty:</span>
+                    <span id="uncertainty">50%</span>
+                </div>
+            </div>
+            
+            <div class="beliefs-panel">
+                <h3>Top Beliefs</h3>
+                <div id="beliefs-list"></div>
+            </div>
+            
+            <div class="traits-panel">
+                <h3>Traits + Self-Awareness</h3>
+                <div id="traits-viz"></div>
+            </div>
+            
+            <div class="bias-warning" id="bias-warning" style="display:none">
+                <h3>⚠️ Detected Biases</h3>
+                <div id="bias-list"></div>
+            </div>
+        </aside>
+
+        <main class="chat-panel">
+            <header>
+                <h1>Son of Aanton <span class="version">v2 - Self-Aware</span></h1>
+                <p class="subtitle">I learn from outcomes, evaluate my own accuracy, and correct my mistakes</p>
+            </header>
+            
+            <div id="chat-history"></div>
+            
+            <div class="input-area">
+                <input type="text" id="user-input" 
+                    placeholder="Ask me anything... Try 'What should I eat?' or 'How confident are you?'">
+                <button onclick="sendMessage()">Send</button>
+                <button onclick="triggerReflection()" class="secondary">Reflect</button>
+                <button onclick="clearMemory()" class="danger">Reset Mind</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="aanton-v2.js"></script>
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const text = input.value.trim();
+            if (!text) return;
+            
+            window.aanton.addMessage('user', text);
+            input.value = '';
+            
+            setTimeout(() => {
+                const result = window.aanton.respond(text);
+                window.aanton.addMessage('aanton', result);
+                updateSelfUI();
+            }, 300);
+        }
+        
+        function triggerReflection() {
+            const insights = window.aanton.selfReflect();
+            window.aanton.addMessage('system', '🔍 Self-reflection complete');
+            insights.forEach(insight => {
+                window.aanton.addMessage('system', `💭 ${insight}`);
+            });
+            updateSelfUI();
+        }
+        
+        function updateSelfUI() {
+            const model = window.aanton.selfModel;
+            document.getElementById('accuracy').textContent = (model.accuracy * 100).toFixed(0) + '%';
+            document.getElementById('confidence').textContent = 
+                model.overconfidence > 0.5 ? 'Overconfident' : 
+                model.uncertainty < 0.3 ? 'High' : 
+                model.uncertainty < 0.6 ? 'Medium' : 'Low';
+            document.getElementById('self-awareness').textContent = window.aanton.traits.selfAwareness.toFixed(1);
+            document.getElementById('uncertainty').textContent = (model.uncertainty * 100).toFixed(0) + '%';
+            
+            // Update beliefs list
+            const beliefsDiv = document.getElementById('beliefs-list');
+            const topBeliefs = Object.entries(window.aanton.beliefs)
+                .map(([k, v]) => ({ key: k.split(':')[1], avg: v.reduce((a,b)=>a+b,0)/v.length, count: v.length }))
+                .sort((a,b) => Math.abs(b.avg) - Math.abs(a.avg))
+                .slice(0, 5);
+            
+            beliefsDiv.innerHTML = topBeliefs.map(b => `
+                <div class="belief-item ${b.avg > 0 ? 'positive' : 'negative'}">
+                    <span>${b.key}</span>
+                    <span>${b.avg > 0 ? '+' : ''}${b.avg.toFixed(1)} (${b.count})</span>
+                </div>
+            `).join('');
+            
+            // Show bias warning if present
+            const biasWarning = document.getElementById('bias-warning');
+            const biasList = document.getElementById('bias-list');
+            if (Object.keys(model.biasProfile).length > 0) {
+                biasWarning.style.display = 'block';
+                biasList.innerHTML = Object.entries(model.biasProfile)
+                    .map(([k,v]) => `<div>Favoring "${k}" (${(v*100).toFixed(0)}%)</div>`)
+                    .join('');
+            } else {
+                biasWarning.style.display = 'none';
+            }
+            
+            window.aanton.renderTraits();
+        }
+        
+        function clearMemory() {
+            if (confirm('Reset Aanton\'s mind? All learning will be lost.')) {
+                localStorage.removeItem('aanton_v2_memory');
+                location.reload();
+            }
+        }
+        
+        document.getElementById('user-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+        
+        // Initial message
+        setTimeout(() => {
+            window.aanton.addMessage('aanton', 
+                `I am Aanton v2. I track my own accuracy (${(window.aanton.selfModel.accuracy*100).toFixed(0)}%). ` +
+                `Ask me "What should I do?" or "How do you work?"`);
+            updateSelfUI();
+        }, 500);
+    </script>
+</body>
+</html>
