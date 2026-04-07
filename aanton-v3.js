@@ -84,7 +84,7 @@ class AantonV3 {
         this.conversationHistory.push({ role: 'user', content: input, time: Date.now() });
         
         // Extract knowledge about user
-        this.extractUserKnowledge(input);
+        const learned = this.extractUserKnowledge(input);
         
         // Try Ollama first
         if (this.ollamaConfig.available) {
@@ -179,6 +179,18 @@ Be concise but engaging.`;
             return this.expressState();
         }
         
+        // Check for questions about user's preferences/likes
+        if ((lower.includes('what do i like') || lower.includes('what do I like') || 
+             lower.includes('what do you know i like') || lower.includes('what do you know about me')) &&
+            (this.userModel.facts.length > 0 || this.userModel.interests.length > 0)) {
+            return this.answerWhatILike();
+        }
+        
+        // Check if user is sharing a fact (like/hate/am/work)
+        if (lower.match(/i (like|love|enjoy|hate|am|work)/)) {
+            return this.acknowledgeLearning(input);
+        }
+        
         // Check for questions requiring reasoning
         if (lower.includes('should i') || lower.includes('what should') || lower.includes('?')) {
             return this.reasonedResponse(input);
@@ -197,30 +209,36 @@ Be concise but engaging.`;
     extractUserKnowledge(input) {
         // Simple extraction of facts about user
         const patterns = [
-            /i (like|love|enjoy|hate) (\w+)/i,
-            /my (name|job|hobby|favorite) is (\w+)/i,
-            /i am (\w+)/i,
-            /i work as (\w+)/i
+            /i (like|love|enjoy|hate) ([^.]+)/i,  // Capture everything after like/love/enjoy/hate
+            /my (name|job|hobby|favorite) is ([^.]+)/i,
+            /i am (a |an )?([^.]+)/i,
+            /i work as (a |an )?([^.]+)/i
         ];
         
+        let learnedSomething = false;
         for (let pattern of patterns) {
             const match = input.match(pattern);
             if (match) {
-                const fact = match[0];
+                const fact = match[0].trim();
                 if (!this.userModel.facts.includes(fact)) {
                     this.userModel.facts.push(fact);
+                    console.log('[Learned]', fact);
+                    learnedSomething = true;
                 }
             }
         }
         
         // Track interests from nouns (simplified)
         const words = input.toLowerCase().split(/\s+/);
-        const interestWords = ['music', 'art', 'code', 'game', 'book', 'movie', 'food', 'travel'];
+        const interestWords = ['music', 'art', 'code', 'game', 'book', 'movie', 'food', 'travel', 'pizza', 'sushi'];
         for (let word of words) {
             if (interestWords.includes(word) && !this.userModel.interests.includes(word)) {
                 this.userModel.interests.push(word);
+                learnedSomething = true;
             }
         }
+        
+        return learnedSomething;
     }
     
     introduceSelf() {
@@ -260,6 +278,53 @@ Be concise but engaging.`;
             summary += "**Interests:** " + this.userModel.interests.join(', ');
         }
         return summary;
+    }
+    
+    acknowledgeLearning(input) {
+        // Extract what was learned
+        const likeMatch = input.match(/i (like|love|enjoy|hate) ([^.]+)/i);
+        const amMatch = input.match(/i am (a |an )?([^.]+)/i);
+        
+        const acknowledgments = [
+            "Noted. I'll remember that.",
+            "Interesting. I'm adding that to what I know about you.",
+            "Good to know. I'm learning more about you with every message.",
+            "I'll keep that in mind.",
+            "Thanks for sharing that with me."
+        ];
+        
+        if (likeMatch) {
+            const thing = likeMatch[2].trim();
+            const verb = likeMatch[1];
+            return `So you ${verb} ${thing}? ${acknowledgments[Math.floor(Math.random() * acknowledgments.length)]}`;
+        }
+        
+        if (amMatch) {
+            const thing = amMatch[2].trim();
+            return `You're ${thing}? ${acknowledgments[Math.floor(Math.random() * acknowledgments.length)]}`;
+        }
+        
+        return acknowledgments[Math.floor(Math.random() * acknowledgments.length)];
+    }
+    
+    answerWhatILike() {
+        // Find likes from facts
+        const likes = this.userModel.facts.filter(f => 
+            f.toLowerCase().includes('like') || 
+            f.toLowerCase().includes('love') ||
+            f.toLowerCase().includes('enjoy')
+        );
+        
+        if (likes.length > 0) {
+            const likeFacts = likes.map(f => f.replace(/i (like|love|enjoy)/i, '').trim());
+            return `Based on what you've told me, you ${likes[0].match(/i (like|love|enjoy)/i)[1]} ${likeFacts.join(', ')}. Is that right?`;
+        }
+        
+        if (this.userModel.interests.length > 0) {
+            return `I know you're interested in ${this.userModel.interests.join(', ')}. What else do you like?`;
+        }
+        
+        return "I'm still learning what you like. Tell me more about your preferences!";
     }
     
     expressState() {
