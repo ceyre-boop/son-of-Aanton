@@ -45,6 +45,56 @@ body {
     font-size: 1.3rem;
 }
 
+.connection-status {
+    background: var(--bg-dark);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.connection-status.connected {
+    color: var(--success);
+}
+
+.connection-status.disconnected {
+    color: var(--warning);
+}
+
+.user-knowledge {
+    background: var(--bg-dark);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.user-knowledge h3 {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+#user-facts {
+    font-size: 0.85rem;
+    color: var(--text);
+}
+
+.version {
+    font-size: 0.5em;
+    background: var(--accent);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+
+.help-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
 #memory-graph {
     height: 250px;
     background: var(--bg-dark);

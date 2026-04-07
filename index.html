@@ -3,32 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Son of Aanton</title>
+    <title>Son of Aanton v3 - Real AI</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar for Memory Graph -->
+        <!-- Sidebar for Memory -->
         <aside class="memory-panel">
-            <h2>Aanton's Mind</h2>
-            <div id="memory-graph"></div>
+            <h2>Aanton's Mind v3</h2>
+            
+            <div class="connection-status" id="connection-status">
+                Checking for Ollama...
+            </div>
+            
             <div class="stats">
                 <div class="stat">
-                    <span class="label">Experiences:</span>
-                    <span id="exp-count">0</span>
+                    <span class="label">Interactions:</span>
+                    <span id="interaction-count">0</span>
                 </div>
                 <div class="stat">
-                    <span class="label">Mood:</span>
+                    <span class="label">Current Mood:</span>
                     <span id="mood">curious</span>
                 </div>
                 <div class="stat">
-                    <span class="label">Dominant Trait:</span>
-                    <span id="dominant-trait">curiosity</span>
+                    <span class="label">Energy:</span>
+                    <span id="energy">10/10</span>
                 </div>
             </div>
+            
+            <div class="user-knowledge">
+                <h3>What I Know About You</h3>
+                <div id="user-facts">Nothing yet...</div>
+            </div>
+            
             <div class="traits-panel">
-                <h3>Traits</h3>
+                <h3>My Traits</h3>
                 <div id="traits-viz"></div>
             </div>
         </aside>
@@ -36,20 +45,21 @@
         <!-- Main Chat Area -->
         <main class="chat-panel">
             <header>
-                <h1>Son of Aanton</h1>
-                <p class="subtitle">A self-learning AI that thinks for itself</p>
+                <h1>Son of Aanton <span class="version">v3</span></h1>
+                <p class="subtitle">Real AI with conversation memory and self-awareness</p>
+                <p class="help-text">Try: "Who are you?" / "What do you know about me?" / "How do you work?"</p>
             </header>
             
             <div id="chat-history"></div>
             
             <div class="input-area">
-                <input type="text" id="user-input" placeholder="Ask Aanton something... (e.g., 'What should I do today?')">
+                <input type="text" id="user-input" placeholder="Talk to Aanton...">
                 <button onclick="sendMessage()">Send</button>
-                <button onclick="clearMemory()" class="secondary">Reset Mind</button>
+                <button onclick="clearMemory()" class="danger">Reset</button>
             </div>
         </main>
     </div>
 
-    <script src="aanton.js"></script>
+    <script src="aanton-v3.js"></script>
 </body>
 </html>
