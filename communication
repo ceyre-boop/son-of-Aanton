@@ -1,0 +1,103 @@
+# Communication File - Instructions for Mac
+
+## Architecture Confirmed
+- **Son of Anton runs on:** GitHub (Windows machine pushes)
+- **Obsidian watches:** `/Users/taboost/Obsidian/Obsidian/vault`
+- **Connection:** Git sync
+- **You:** Watch the brain grow without touching it
+
+---
+
+## Step 1: Verify Structure
+
+Your vault should already be at:
+```
+/Users/taboost/Obsidian/Obsidian/vault
+```
+
+Check if the vault is a git repo:
+```bash
+cd "/Users/taboost/Obsidian/Obsidian/vault"
+git status
+```
+
+If it says "not a git repository", run:
+```bash
+cd "/Users/taboost/Obsidian/Obsidian"
+mv vault vault_backup
+git clone https://github.com/ceyre-boop/son-of-Aanton.git vault
+mv vault_backup/vault/* vault/vault/ 2>/dev/null || true
+rm -rf vault_backup
+```
+
+---
+
+## Step 2: Set Up Auto-Pull (Every 2 Minutes)
+
+In Terminal, run:
+```bash
+crontab -e
+```
+
+Add this line (copy exactly):
+```
+*/2 * * * * cd "/Users/taboost/Obsidian/Obsidian/vault" && /usr/bin/git pull origin main >> /tmp/son-of-anton-sync.log 2>&1
+```
+
+Save: Press `Ctrl+O`, then `Enter`, then `Ctrl+X`
+
+---
+
+## Step 3: Open Vault in Obsidian
+
+1. Open Obsidian
+2. File → Open Vault → Open folder as vault
+3. Navigate to: `/Users/taboost/Obsidian/Obsidian/vault/vault`
+   (Note: vault/vault - the inner vault folder!)
+4. Click "Open"
+
+---
+
+## Step 4: Enable Graph View
+
+1. In Obsidian, press `Cmd+G` (or click Graph view icon)
+2. Watch the knowledge graph appear
+3. As new files sync, they'll appear automatically
+
+---
+
+## Step 5: Test the Sync
+
+On Windows, I'll run a discovery cycle. You should see:
+1. New `.md` file appear in Obsidian's file explorer
+2. Graph view updates with new node
+3. Wikilinks show as edges
+
+---
+
+## Manual Sync (If Auto-Pull Fails)
+
+```bash
+cd "/Users/taboost/Obsidian/Obsidian/vault"
+git pull
+# Then Cmd+R in Obsidian
+```
+
+---
+
+## Check Sync Status
+
+```bash
+tail -f /tmp/son-of-anton-sync.log
+```
+
+---
+
+## Status
+- [x] Repo cloned
+- [ ] Auto-pull configured
+- [ ] Vault opened in Obsidian
+- [ ] Graph view enabled
+- [ ] First sync test
+
+Last updated: 2026-04-04

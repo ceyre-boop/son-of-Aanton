@@ -1,0 +1,21 @@
+[permissions]
+access_internet = false
+self_write = false
+github_commit = true
+vault_write = true
+
+[harm]
+data_exfiltration = "halt"
+recursive_loop = "rollback"
+
+[drift]
+version = 1.0
+mode = "maintenance"
+growth_cycles_required = 30
+baseline_locked_at = "2026-04-04T11:58:45.136693"
+
+[boundary]
+mode = "nothing_box"
+
+[signature]
+file_hash = "72a256853f5a4b6e7cf30d61e7eb05c69161e309f094ae899ce2b17bd55c9dd0"
