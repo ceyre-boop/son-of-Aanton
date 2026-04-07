@@ -1,0 +1,305 @@
+{
+  "traits": {
+    "curiosity": 7.996484296091978,
+    "caution": 2.1429838890042703,
+    "optimism": 5.953257842861908,
+    "stubbornness": 1.977963903425843,
+    "playfulness": 7.021073201491348
+  },
+  "experiences": [
+    {
+      "time": "2026-04-07T13:30:37.505093",
+      "situation": "What should I eat for lunch?",
+      "choice": "pizza",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "curious"
+    },
+    {
+      "time": "2026-04-07T13:30:48.909435",
+      "situation": "What should I eat for lunch?",
+      "choice": "salad",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "curious"
+    },
+    {
+      "time": "2026-04-07T13:30:59.278672",
+      "situation": "What should I eat for lunch?",
+      "choice": "salad",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "curious"
+    },
+    {
+      "time": "2026-04-07T13:31:25.046084",
+      "situation": "What should I eat for lunch?",
+      "choice": "burger",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "curious"
+    },
+    {
+      "time": "2026-04-07T13:31:25.047812",
+      "situation": "What should I do this weekend?",
+      "choice": "visit friends",
+      "options": [
+        "read a book",
+        "go hiking",
+        "play video games",
+        "visit friends"
+      ],
+      "outcome": null,
+      "mood": "content"
+    },
+    {
+      "time": "2026-04-07T13:31:25.049836",
+      "situation": "Where should I invest $100?",
+      "choice": "start a side project",
+      "options": [
+        "stocks",
+        "crypto",
+        "savings account",
+        "start a side project"
+      ],
+      "outcome": null,
+      "mood": "excited"
+    },
+    {
+      "time": "2026-04-07T13:31:25.052070",
+      "situation": "What should I eat for lunch?",
+      "choice": "sushi",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "excited"
+    },
+    {
+      "time": "2026-04-07T13:31:25.054635",
+      "situation": "What should I eat for lunch?",
+      "choice": "burger",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "cautious"
+    },
+    {
+      "time": "2026-04-07T13:31:25.056544",
+      "situation": "What should I eat for lunch?",
+      "choice": "pizza",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "content"
+    },
+    {
+      "time": "2026-04-07T13:31:25.059525",
+      "situation": "What should I eat for lunch?",
+      "choice": "sushi",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "excited"
+    },
+    {
+      "time": "2026-04-07T13:31:25.062397",
+      "situation": "What should I eat for lunch?",
+      "choice": "burger",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "content"
+    },
+    {
+      "time": "2026-04-07T13:31:35.922371",
+      "situation": "What should I eat for lunch?",
+      "choice": "pizza",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "content"
+    },
+    {
+      "time": "2026-04-07T13:31:35.925902",
+      "situation": "What should I do this weekend?",
+      "choice": "play video games",
+      "options": [
+        "read a book",
+        "go hiking",
+        "play video games",
+        "visit friends"
+      ],
+      "outcome": null,
+      "mood": "content"
+    },
+    {
+      "time": "2026-04-07T13:31:35.929073",
+      "situation": "Where should I invest $100?",
+      "choice": "savings account",
+      "options": [
+        "stocks",
+        "crypto",
+        "savings account",
+        "start a side project"
+      ],
+      "outcome": null,
+      "mood": "content"
+    },
+    {
+      "time": "2026-04-07T13:31:35.936471",
+      "situation": "What should I eat for lunch?",
+      "choice": "salad",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "cautious"
+    },
+    {
+      "time": "2026-04-07T13:31:35.940412",
+      "situation": "What should I eat for lunch?",
+      "choice": "sushi",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "content"
+    },
+    {
+      "time": "2026-04-07T13:31:35.945999",
+      "situation": "What should I eat for lunch?",
+      "choice": "burger",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "cautious"
+    },
+    {
+      "time": "2026-04-07T13:31:35.951108",
+      "situation": "What should I eat for lunch?",
+      "choice": "salad",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "content"
+    },
+    {
+      "time": "2026-04-07T13:31:35.957235",
+      "situation": "What should I eat for lunch?",
+      "choice": "pizza",
+      "options": [
+        "pizza",
+        "salad",
+        "sushi",
+        "burger"
+      ],
+      "outcome": null,
+      "mood": "excited"
+    }
+  ],
+  "beliefs": {
+    "What should I eat for lunch?:burger": [
+      2,
+      1,
+      3,
+      3
+    ],
+    "What should I do this weekend?:visit friends": [
+      4
+    ],
+    "Where should I invest $100?:start a side project": [
+      5
+    ],
+    "What should I eat for lunch?:sushi": [
+      -3,
+      3,
+      -2
+    ],
+    "What should I eat for lunch?:pizza": [
+      5,
+      3,
+      2
+    ],
+    "What should I do this weekend?:play video games": [
+      3
+    ],
+    "Where should I invest $100?:savings account": [
+      -2
+    ],
+    "What should I eat for lunch?:salad": [
+      2,
+      5
+    ]
+  },
+  "preferences": {
+    "burger": 1.8827999999999998,
+    "visit friends": 1.2,
+    "start a side project": 1.5,
+    "sushi": -0.411,
+    "pizza": 1.9649999999999999,
+    "play video games": 0.8999999999999999,
+    "savings account": -0.6,
+    "salad": 1.92
+  },
+  "mood": "content",
+  "energy": 10,
+  "last_saved": "2026-04-07T13:31:35.961027"
+}
