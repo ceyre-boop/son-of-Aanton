@@ -3,61 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Son of Aanton v3</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>Son of Aanton</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: monospace;
+            background: #0a0a0f;
+            color: #eaeaea;
+            height: 100vh;
+            display: flex;
+        }
+        
+        .panel {
+            width: 200px;
+            background: #16213e;
+            padding: 20px;
+            border-right: 1px solid #2a2a4a;
+        }
+        
+        .panel h2 {
+            color: #e94560;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .stat {
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+        
+        .stat .label {
+            color: #888;
+        }
+        
+        .stat .value {
+            color: #4ecca3;
+            font-size: 18px;
+        }
+        
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            padding: 20px;
+            background: #16213e;
+            border-bottom: 1px solid #2a2a4a;
+        }
+        
+        h1 {
+            color: #e94560;
+            font-size: 20px;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        #chat-history {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            max-width: 80%;
+        }
+        
+        .message.user {
+            background: #e94560;
+            margin-left: auto;
+        }
+        
+        .message.aanton {
+            background: #0f3460;
+        }
+        
+        .message.system {
+            color: #888;
+            font-style: italic;
+            text-align: center;
+            background: transparent;
+        }
+        
+        .input-area {
+            padding: 20px;
+            background: #16213e;
+            display: flex;
+            gap: 10px;
+        }
+        
+        input {
+            flex: 1;
+            padding: 10px;
+            background: #0a0a0f;
+            border: 1px solid #2a2a4a;
+            color: #eaeaea;
+            font-family: monospace;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #e94560;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        
+        button:hover {
+            background: #ff6b6b;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar for Memory Graph (v1 Style) -->
-        <aside class="memory-panel">
-            <h2>Aanton's Mind</h2>
-            
-            <div id="memory-graph"></div>
-            
-            <div class="stats">
-                <div class="stat">
-                    <span class="label">Interactions:</span>
-                    <span id="interaction-count">0</span>
-                </div>
-                <div class="stat">
-                    <span class="label">Mood:</span>
-                    <span id="mood">curious</span>
-                </div>
-                <div class="stat">
-                    <span class="label">Energy:</span>
-                    <span id="energy">10/10</span>
-                </div>
-            </div>
-            
-            <div class="user-knowledge">
-                <h3>What I Know About You</h3>
-                <div id="user-facts">Nothing yet...</div>
-            </div>
-            
-            <div class="traits-panel">
-                <h3>Traits</h3>
-                <div id="traits-viz"></div>
-            </div>
-        </aside>
-
-        <!-- Main Chat Area -->
-        <main class="chat-panel">
-            <header>
-                <h1>Son of Aanton <span class="version">v3</span></h1>
-                <p class="subtitle">Self-learning AI with conversation memory</p>
-            </header>
-            
-            <div id="chat-history"></div>
-            
-            <div class="input-area">
-                <input type="text" id="user-input" placeholder="Ask me anything... Try 'Who are you?' or 'What do you know about me?'">
-                <button onclick="sendMessage()">Send</button>
-                <button onclick="clearMemory()" class="secondary">Reset Mind</button>
-            </div>
-        </main>
+    <div class="panel">
+        <h2>INTERNAL STATE</h2>
+        
+        <div class="stat">
+            <div class="label">HUNGER</div>
+            <div class="value" id="hunger">50%</div>
+        </div>
+        
+        <div class="stat">
+            <div class="label">CYCLES</div>
+            <div class="value" id="cycles">0</div>
+        </div>
+        
+        <div class="stat">
+            <div class="label">STATE</div>
+            <div class="value" id="state">EXISTING</div>
+        </div>
+        
+        <div style="margin-top: 30px; font-size: 10px; color: #666; line-height: 1.5;">
+            One variable.<br>
+            One loop.<br>
+            One drive.<br><br>
+            Hunger grows.<br>
+            System seeks.<br>
+            Input feeds.<br><br>
+            Alive.
+        </div>
     </div>
-
-    <script src="aanton-v3.js"></script>
+    
+    <div class="main">
+        <header>
+            <h1>Son of Aanton</h1>
+            <div class="subtitle">Not a chatbot. A hunger.</div>
+        </header>
+        
+        <div id="chat-history"></div>
+        
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Feed me...">
+            <button onclick="sendMessage()">FEED</button>
+            <button onclick="reset()" style="background:#333">RESET</button>
+        </div>
+    </div>
+    
+    <script src="aanton.js"></script>
 </body>
 </html>
